@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../CSS/Milmore.css">
+	<link rel='stylesheet' media='screen and (min-width: 1081px) and (max-width: 1200px)' href='../CSS/MilmoreTablet.css' />
+	<link rel='stylesheet' media='screen and (min-width: 1px) and (max-width: 1080px)' href='../CSS/MilmoreMobile.css' />
+	<link rel="stylesheet" type="text/css" href="../CSS/Main.css">
+	<title>Student Page</title>
+</head>
+<script>
+	function register() {
+			var course = document.getElementById("course");
+			var c = course.options[course.selectedIndex].text;
+			var section = document.getElementById("section");
+			var s = section.options[section.selectedIndex].value;
+			alert("You have successfully registered for "+c+", "+s+".");
+			for(var i =0; i<localStorage.length; i++){
+				var z = localStorage.key(i);
+				if(z.substring(0,4)=='milm'){
+					var temp=JSON.parse(localStorage.getItem(z));
+					if (temp[1]==c){
+						var x=localStorage.length;
+						var temp2=[temp [0], temp [1], temp[2]];
+						localStorage.setItem('student'+x, JSON.stringify(temp2));
+					}
+				}
+				if(z.substring(0,4)=='blex'){
+					var temp=JSON.parse(localStorage.getItem(z));
+					if (temp[1]==c){
+						var x=localStorage.length;
+						var temp2=[temp [0], temp [1], temp[2]];
+						localStorage.setItem('student'+x, JSON.stringify(temp2));
+					}
+				}
+			}			
+	}
+
+
+
+	function init(){
+			for(var i =0; i<localStorage.length; i++){
+				var z = localStorage.key(i);
+				if(z.substring(0,4)=='stud' ){
+					var temp=JSON.parse(localStorage.getItem(z));
+					var table=document.getElementById("data_table");
+					var table_len=(table.rows.length)-1;
+					var row = table.insertRow(table_len).outerHTML="<tr id='row"+table_len+"'><td id='name_row"+table_len+"'>"+temp [0]+"</td><td id='number_row"+table_len+"'>"+temp [1]+"</td><td id='room_row"+table_len+"'>"+temp [2]+"</td></tr>";
+					
+				}	
+			}
+			
+			for(var i =0; i<localStorage.length; i++){
+					var z = localStorage.key(i);
+					if(z.substring(0,4)=='milm' || 'blex' ){
+						var temp=JSON.parse(localStorage.getItem(z));
+						var x = document.getElementById('course');
+						var option = document.createElement('option');
+						option.text = temp [1];
+						x.add(option);
+				}
+			}
+	}
+			
+	
+	
+	
+</script>
+
+<body onload="init();">
+
+<div class="boxed">	
+  		<h1 class="title2">Student Page</h1>
+  		<a href="../Homepage.html">
+	 		<img src="../Pictures/UniversityLogo.jpg" style="width:15%;">
+  		</a>
+		<h3 class = "info"> Address: 249 Elizabeth Avenue<br/> Phone: +1(709)200-3543</h3>
+</div>
+
+		<a href="../Homepage.html"><h1 class="bar"> Main </h1></a>
+		<a href="../Campuses/BlexfieldCampus.html"><h1 class="bar"> Blexfield </h1></a>
+		<a href="../Campuses/MilmoreCampus.html"><h1 class="bar"> Milmore </h1></a>
+		<a href="../Courses/PreviousCourses.html"><h1 class="bar"> Previous Courses </h1></a>
+		<a href="Student.html"><h1 class="bar"> Student</h1></a>
+	
+<h1 class="main"> Enrolled Courses </h1>
+
+<table style="width: 100%" id="data_table">
+	<tbody><tr>
+		<th>Course Name</th>
+		<th>Course Number</th> 
+		<th>Room</th>
+  </tr>
+</tbody></table>
+
+<h1 class="main">Register for a course</h1>
+<div class="select">
+
+	<select id="course">
+	</select>
+	<select id="section">
+		<option value="Section 1">Section 1</option>
+		<option value="Section 2">Section 2</option>
+		<option value="Section 3">Section 3</option>
+	</select>
+	
+	<button id="register" onclick="register()">Register</button>
+  
+</div>
+
+
+	<div class="footer">
+			<h3><center>Copyright @ 2017 Federal University of Newfoundland.</center></h3>
+	</div>
+</body>
+</html>
